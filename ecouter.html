@@ -27,6 +27,7 @@
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             margin-top: 50px;
             width: 450px;
+            min-height: 260px;
         }
 
         .row {
@@ -84,6 +85,27 @@
             font-size: 0.95rem;
             font-style: italic;
         }
+
+        #accent-row {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            min-height: 40px;
+        }
+
+        .accent-btn {
+            padding: 6px 12px;
+            font-size: 1.1rem;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            cursor: pointer;
+        }
+
+        .accent-hidden {
+            visibility: hidden;
+            pointer-events: none;
+        }
+
     </style>
 </head>
 <body>
@@ -99,6 +121,14 @@
         <div class="row">
             <img id="bottom-flag" class="flag" src="" alt="Flag">
             <input type="text" id="user-input" autocomplete="off" placeholder="Traduisez...">
+        </div>
+
+        <div id="accent-row">
+            <button class="accent-btn">é</button>
+            <button class="accent-btn">è</button>
+            <button class="accent-btn">ê</button>
+            <button class="accent-btn">à</button>
+            <button class="accent-btn">ç</button>
         </div>
 
         <div id="feedback-area">
@@ -138,6 +168,7 @@
         const userInput = document.getElementById('user-input');
         const feedbackText = document.getElementById('feedback-text');
         const instructionText = document.getElementById('instruction-text');
+        const accentRow = document.getElementById('accent-row');
 
         const FLAG_FR = "https://flagcdn.com/w80/fr.png";
         const FLAG_US = "https://flagcdn.com/w80/us.png";
@@ -168,11 +199,15 @@
                 bottomFlag.src = FLAG_US;
                 displayWord.textContent = currentWordPair.french;
                 targetWord = currentWordPair.english;
+                userInput.placeholder = "Translate...";
+                accentRow.classList.add('accent-hidden');
             } else {
                 topFlag.src = FLAG_US;
                 bottomFlag.src = FLAG_FR;
                 displayWord.textContent = currentWordPair.english;
                 targetWord = currentWordPair.french;
+                userInput.placeholder = "Traduisez...";
+                accentRow.classList.remove('accent-hidden');
             }
             
             userInput.focus();
@@ -207,6 +242,13 @@
             userInput.readOnly = true;
             isWaitingForNext = true;
         }
+
+        document.querySelectorAll('.accent-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                userInput.value += button.textContent;
+                userInput.focus();
+            });
+        });
 
         // Start the game
         nextTurn();

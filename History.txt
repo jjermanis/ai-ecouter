@@ -19,9 +19,20 @@ I asked Gemini to fix that - it did.
 This is a functional basis for the app. There will be many changes to follow.
 
 
+version 01.02	20 minutes dev	0 minutes code gen	3 minutes test		1 hour 16
 
-TODO: I need an easy way to type accent marks. Clickable buttons underneath
-seem right. Group by accent, and then alphabetically. Or vice versa?
+On a US-keyboard, there is no easy way to type French accented letter. When
+translating to French, I want buttons for all the comments on the screen.
+Only there when translating to French. I did this - worked on the first
+attempt! They appear as hoped and expected, and evaluates the answers 
+correctly when the right accents are used.
+I made a small change while I was there. The tool tip where the translation
+is entered also shows "Traduisez". That looks a little silly when translating
+to English. The tool tip will show Traduisez/Translate depending on the
+language. An easy change.
+
+
+
 TODO: Need a "close" miss. Maybe dropping one character? Missing accents?
 Need to think this out a bit to balance kindness and implementation.
 TODO: it inconsistent in its use of conjugated verbs. Example: the English
@@ -33,8 +44,7 @@ of conjugation and only use unconjugated for verbs?
 TODO: another example. I was given French for "un". I entered "a". It expected
 "one". Maybe alternates need to be accepted?
 TODO: keep score per session. Right, Close, Wrong.
-TODO: It says Traduisez translating to either French of English. Maybe
-show Translate for English?
+
 
 
 
