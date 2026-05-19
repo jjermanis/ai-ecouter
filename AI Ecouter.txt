@@ -1,0 +1,16 @@
+Create a single-page app in a single HTML file with the following requirements:
+- Name: Écoutez et répétez
+- Goal: Practice your usage of the French language
+- The goal of the game is to practice French vocabulary,
+- The French vocabulary is in an array named vocabulary. I will define it's values.
+- The data format is ID, French word, English word.
+- The layout of the screen is the name of the game is in the top-center of the screen.
+- On the left hand side, there are two flags: the French flag and the US flag. The order of them will change each turn.
+- To the right of the top flag, it is static text for the current word.
+- To the right of the bottom flag, it is a text entry box.
+- At the start of each turn, the app decides whether an English word or a French word is on top. That choice is random for each turn.
+- The app will pick one of the words in vocab.txt to show. That word is random.
+- The user will enter the translated word in the text entry box. They hit enter when they are done.
+- If the typed word matches the translated word from vocab.txt, it will say Correct! at the bottom-center of the screen. The type Enter to get to the next word.
+- If the typed word does not match the translated word from vocab.txt, it says "Sorry: that's FFF", where FFF is the correct word.
+

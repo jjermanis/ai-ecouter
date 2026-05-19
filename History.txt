@@ -1,0 +1,41 @@
+version 01.01	48 minutes dev	3 minutes code gen	3 minutes test		53 minutes total
+
+This one isn't really a game. It's to help build French vocabulary. This will
+be the first app I develop using Google Gemini.
+I got the most frequently used Top 1000 French words from the web. The app 
+will be a practice app. It will select a random word, either French or 
+English. The user has to type in the translation. 
+I wrote up a description for this. I ran into multiple issues. 
+This is the URL for that list of 1000 words:
+	https://strommeninc.com/1000-most-common-french-words-frequency-vocabulary/
+I placed the file with the Top 1000 words in the local folder. The browser 
+cannot read text files directly. This is a security issue for the browser.
+I changed this to have Gemini write the JavaScript to declare into code.
+This works better. There is a defect: it will not go to the next word.
+I theorize this is because the UI control is disabled. Yep, that was it.
+Gemini provided a fix.
+After fixing this, it would skip was the notice if you got it right or wrong.
+I asked Gemini to fix that - it did.
+This is a functional basis for the app. There will be many changes to follow.
+
+
+
+TODO: I need an easy way to type accent marks. Clickable buttons underneath
+seem right. Group by accent, and then alphabetically. Or vice versa?
+TODO: Need a "close" miss. Maybe dropping one character? Missing accents?
+Need to think this out a bit to balance kindness and implementation.
+TODO: it inconsistent in its use of conjugated verbs. Example: the English
+word was are. I type in etre. It was expecting sont. That is a correct 
+translation... but how would I know it was 3rd person plural? Maybe I have
+to add notes for conjugation. That is tricky: that conjutation needs to be
+shown in English, but not what needs to be typed in. Or... I should get rid
+of conjugation and only use unconjugated for verbs?
+TODO: another example. I was given French for "un". I entered "a". It expected
+"one". Maybe alternates need to be accepted?
+TODO: keep score per session. Right, Close, Wrong.
+TODO: It says Traduisez translating to either French of English. Maybe
+show Translate for English?
+
+
+
+

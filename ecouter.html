@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Écoutez et répétez</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f0f2f5;
+            margin: 0;
+            height: 100vh;
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-top: 20px;
+        }
+
+        #game-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-top: 50px;
+            width: 450px;
+        }
+
+        .row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            min-height: 60px;
+        }
+
+        .flag {
+            width: 60px;
+            height: 40px;
+            object-fit: cover;
+            border: 1px solid #ddd;
+            margin-right: 20px;
+            border-radius: 4px;
+        }
+
+        #display-word {
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: #34495e;
+        }
+
+        input[type="text"] {
+            padding: 12px;
+            font-size: 1.3rem;
+            border: 2px solid #bdc3c7;
+            border-radius: 6px;
+            flex-grow: 1;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        #feedback-area {
+            margin-top: 20px;
+            text-align: center;
+            min-height: 80px;
+        }
+
+        #feedback-text {
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .correct { color: #27ae60; }
+        .incorrect { color: #e74c3c; }
+
+        .instruction {
+            color: #7f8c8d;
+            font-size: 0.95rem;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Écoutez et répétez</h1>
+
+    <div id="game-container">
+        <div class="row">
+            <img id="top-flag" class="flag" src="" alt="Flag">
+            <div id="display-word"></div>
+        </div>
+
+        <div class="row">
+            <img id="bottom-flag" class="flag" src="" alt="Flag">
+            <input type="text" id="user-input" autocomplete="off" placeholder="Traduisez...">
+        </div>
+
+        <div id="feedback-area">
+            <div id="feedback-text"></div>
+            <div id="instruction-text" class="instruction"></div>
+        </div>
+    </div>
+
+    <script>
+        // Data definition
+	const vocabulary = [
+	    { id: 1, french: "comme", english: "as" },
+	    { id: 2, french: "je", english: "I" },
+ 	    { id: 3, french: "son", english: "his" },
+	    { id: 4, french: "que", english: "that" },
+	    { id: 5, french: "il", english: "he" },
+	    { id: 6, french: "était", english: "was" },
+	    { id: 7, french: "pour", english: "for" },
+	    { id: 8, french: "sur", english: "on" },
+	    { id: 9, french: "sont", english: "are" },
+	    { id: 10, french: "avec", english: "with" },
+	    { id: 11, french: "ils", english: "they" },
+	    { id: 12, french: "être", english: "be" },
+	    { id: 13, french: "à", english: "at" },
+ 	    { id: 14, french: "un", english: "one" },
+ 	    { id: 15, french: "avoir", english: "have" },
+	    { id: 16, french: "ce", english: "this" },
+	    { id: 17, french: "à partir de", english: "from" },
+	    { id: 18, french: "par", english: "by" },
+	    { id: 19, french: "chaud", english: "hot" },
+	    { id: 20, french: "mot", english: "word" }
+	];
+
+        const topFlag = document.getElementById('top-flag');
+        const bottomFlag = document.getElementById('bottom-flag');
+        const displayWord = document.getElementById('display-word');
+        const userInput = document.getElementById('user-input');
+        const feedbackText = document.getElementById('feedback-text');
+        const instructionText = document.getElementById('instruction-text');
+
+        const FLAG_FR = "https://flagcdn.com/w80/fr.png";
+        const FLAG_US = "https://flagcdn.com/w80/us.png";
+
+        let currentWordPair = null;
+        let targetWord = "";
+        let isWaitingForNext = false;
+
+        function nextTurn() {
+            // Reset state
+            isWaitingForNext = false;
+            userInput.value = "";
+            userInput.readOnly = false; // Add this line
+            userInput.focus();
+            userInput.disabled = false;
+            feedbackText.textContent = "";
+            instructionText.textContent = "";
+            feedbackText.className = "";
+            
+            // Pick random word
+            currentWordPair = vocabulary[Math.floor(Math.random() * vocabulary.length)];
+            
+            // Randomize direction (Top is French or Top is English)
+            const isFrenchOnTop = Math.random() < 0.5;
+
+            if (isFrenchOnTop) {
+                topFlag.src = FLAG_FR;
+                bottomFlag.src = FLAG_US;
+                displayWord.textContent = currentWordPair.french;
+                targetWord = currentWordPair.english;
+            } else {
+                topFlag.src = FLAG_US;
+                bottomFlag.src = FLAG_FR;
+                displayWord.textContent = currentWordPair.english;
+                targetWord = currentWordPair.french;
+            }
+            
+            userInput.focus();
+        }
+
+        userInput.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter') {
+                // Prevent the default browser behavior for Enter
+                e.preventDefault();
+
+                if (isWaitingForNext) {
+                    nextTurn();
+                } else if (userInput.value.trim() !== "") {
+            checkAnswer();
+                }
+            }
+	});
+
+        function checkAnswer() {
+            const answer = userInput.value.trim().toLowerCase();
+            const correct = targetWord.toLowerCase();
+
+            if (answer === correct) {
+                feedbackText.textContent = "Correct!";
+                feedbackText.className = "correct";
+            } else {
+                feedbackText.textContent = `Sorry: that's ${targetWord}`;
+                feedbackText.className = "incorrect";
+            }
+
+            instructionText.textContent = "Press Enter for the next word";
+            userInput.readOnly = true;
+            isWaitingForNext = true;
+        }
+
+        // Start the game
+        nextTurn();
+    </script>
+</body>
+</html>
