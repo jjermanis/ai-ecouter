@@ -32,9 +32,23 @@ to English. The tool tip will show Traduisez/Translate depending on the
 language. An easy change.
 
 
+version 01.03	18 minutes dev	0 minutes code gen	4 minutes test		1 hour 38
 
-TODO: Need a "close" miss. Maybe dropping one character? Missing accents?
-Need to think this out a bit to balance kindness and implementation.
+The next one I thought was a bit tricky. Instead of just right or wrong,
+where right had to be spelled perfectly, I wanted a third result: close.
+A guess would be close if it had these mistakes:
+* Spelled correctly, but missing accent marks
+* A letter is missing, but is otherwise spelled correctly
+* Two letters next to each other are reversed
+Not perfect... but I think close enough. I gave this to Gemini. It provided
+test cases for each. All of the tests were accurate. It provided the code.
+The first attempt appeared to work!
+With this close result, I now want to show a running score total at the
+bottom, showing the count of right, close, and wrong. Easy change: first
+attempt worked.
+
+
+
 TODO: it inconsistent in its use of conjugated verbs. Example: the English
 word was are. I type in etre. It was expecting sont. That is a correct 
 translation... but how would I know it was 3rd person plural? Maybe I have
@@ -43,8 +57,9 @@ shown in English, but not what needs to be typed in. Or... I should get rid
 of conjugation and only use unconjugated for verbs?
 TODO: another example. I was given French for "un". I entered "a". It expected
 "one". Maybe alternates need to be accepted?
-TODO: keep score per session. Right, Close, Wrong.
-
+TODO: currently at top 20. Next step: 100
+TODO: need the MIT License to be shown
+TODO: add an icon on the browser tab
 
 
 

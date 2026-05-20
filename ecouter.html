@@ -79,6 +79,7 @@
 
         .correct { color: #27ae60; }
         .incorrect { color: #e74c3c; }
+        .close { color: #d35400; }
 
         .instruction {
             color: #7f8c8d;
@@ -135,6 +136,12 @@
             <div id="feedback-text"></div>
             <div id="instruction-text" class="instruction"></div>
         </div>
+
+        <div id="scoreboard" style="display: flex; justify-content: space-around; margin-top: 25px; padding-top: 15px; border-top: 1px solid #e2e8f0; font-size: 1.1rem; font-weight: bold; color: #4a5568;">
+            <div>Right: <span id="score-right" style="color: #27ae60;">0</span></div>
+            <div>Close: <span id="score-close" style="color: #d35400;">0</span></div>
+            <div>Wrong: <span id="score-wrong" style="color: #e74c3c;">0</span></div>
+        </div>
     </div>
 
     <script>
@@ -169,6 +176,9 @@
         const feedbackText = document.getElementById('feedback-text');
         const instructionText = document.getElementById('instruction-text');
         const accentRow = document.getElementById('accent-row');
+        const scoreRightEl = document.getElementById('score-right');
+        const scoreCloseEl = document.getElementById('score-close');
+        const scoreWrongEl = document.getElementById('score-wrong');
 
         const FLAG_FR = "https://flagcdn.com/w80/fr.png";
         const FLAG_US = "https://flagcdn.com/w80/us.png";
@@ -176,6 +186,9 @@
         let currentWordPair = null;
         let targetWord = "";
         let isWaitingForNext = false;
+        let countRight = 0;
+        let countClose = 0;
+        let countWrong = 0;
 
         function nextTurn() {
             // Reset state
@@ -226,6 +239,60 @@
             }
 	});
 
+        // Helper to strip French accents for the first rule
+        function removeAccents(str) {
+            return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        }
+
+        // Returns true if the answer meets any of your three rules for being "Close"
+        function isAnswerClose(user, target) {
+            // Rule 1: Correct letters but missing/wrong accent marks
+            if (removeAccents(user) === removeAccents(target)) {
+                return true;
+            }
+
+            const lenU = user.length;
+            const lenT = target.length;
+
+            // Rule 2: Missing exactly one letter (or has exactly one extra letter)
+            if (Math.abs(lenU - lenT) === 1) {
+                let longer = lenU > lenT ? user : target;
+                let shorter = lenU > lenT ? target : user;
+                let i = 0, j = 0, errors = 0;
+                while (i < longer.length && j < shorter.length) {
+                    if (longer[i] !== shorter[j]) {
+                        errors++;
+                        i++; // skip the missing letter in the shorter string
+                        if (errors > 1) break;
+                    } else {
+                        i++;
+                        j++;
+                    }
+                }
+                if (errors <= 1) return true;
+            }
+
+            // Rule 3: All correct letters, but two adjacent letters are reversed
+            if (lenU === lenT) {
+                let mismatches = [];
+                for (let i = 0; i < lenT; i++) {
+                    if (user[i] !== target[i]) {
+                        mismatches.push(i);
+                    }
+                }
+                // Exactly two mismatches means a single potential transposition swap
+                if (mismatches.length === 2) {
+                    const [i1, i2] = mismatches;
+                    // Verify they are right next to each other and swapping them fixes the word
+                    if (i2 - i1 === 1 && user[i1] === target[i2] && user[i2] === target[i1]) {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
         function checkAnswer() {
             const answer = userInput.value.trim().toLowerCase();
             const correct = targetWord.toLowerCase();
@@ -233,14 +300,27 @@
             if (answer === correct) {
                 feedbackText.textContent = "Correct!";
                 feedbackText.className = "correct";
+                countRight++;
+                scoreRightEl.textContent = countRight;
+           } else if (isAnswerClose(answer, correct)) {
+                // Handle the new close state
+                feedbackText.textContent = `Close! The correct spelling is: ${targetWord}`;
+                feedbackText.className = "close";
+                countClose++;
+                scoreCloseEl.textContent = countClose;
             } else {
                 feedbackText.textContent = `Sorry: that's ${targetWord}`;
                 feedbackText.className = "incorrect";
-            }
+                countWrong++;
+                scoreWrongEl.textContent = countWrong;
+           }
 
             instructionText.textContent = "Press Enter for the next word";
             userInput.readOnly = true;
             isWaitingForNext = true;
+            
+            // Clear accent shortcuts for the feedback phase
+            accentContainer.innerHTML = "";
         }
 
         document.querySelectorAll('.accent-btn').forEach(button => {
