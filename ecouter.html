@@ -147,26 +147,103 @@
     <script>
         // Data definition
 	const vocabulary = [
-	    { id: 1, french: "comme", english: "as" },
-	    { id: 2, french: "je", english: "I" },
- 	    { id: 3, french: "son", english: "his" },
-	    { id: 4, french: "que", english: "that" },
-	    { id: 5, french: "il", english: "he" },
-	    { id: 6, french: "était", english: "was" },
-	    { id: 7, french: "pour", english: "for" },
-	    { id: 8, french: "sur", english: "on" },
-	    { id: 9, french: "sont", english: "are" },
-	    { id: 10, french: "avec", english: "with" },
-	    { id: 11, french: "ils", english: "they" },
-	    { id: 12, french: "être", english: "be" },
-	    { id: 13, french: "à", english: "at" },
- 	    { id: 14, french: "un", english: "one" },
- 	    { id: 15, french: "avoir", english: "have" },
-	    { id: 16, french: "ce", english: "this" },
-	    { id: 17, french: "à partir de", english: "from" },
-	    { id: 18, french: "par", english: "by" },
-	    { id: 19, french: "chaud", english: "hot" },
-	    { id: 20, french: "mot", english: "word" }
+    { id: 1, french: "comme", french_alt: [], english: "as", english_alt: [] },
+    { id: 2, french: "je", french_alt: [], english: "I", english_alt: [] },
+    { id: 3, french: "son", french_alt: [], english: "his", english_alt: [] },
+    { id: 4, french: "que", french_alt: [], english: "that", english_alt: [] },
+    { id: 5, french: "il", french_alt: [], english: "he", english_alt: [] },
+    { id: 6, french: "était", french_alt: [], english: "was", english_alt: [] },
+    { id: 7, french: "pour", french_alt: [], english: "for", english_alt: [] },
+    { id: 8, french: "sur", french_alt: [], english: "on", english_alt: [] },
+    { id: 9, french: "sont", french_alt: [], english: "are", english_alt: [] },
+    { id: 10, french: "avec", french_alt: [], english: "with", english_alt: [] },
+    { id: 11, french: "ils", french_alt: ["elles"], english: "they", english_alt: [] },
+    { id: 12, french: "être", french_alt: [], english: "be", english_alt: [] },
+    { id: 13, french: "à", french_alt: [], english: "at", english_alt: [] },
+    { id: 14, french: "un", french_alt: [], english: "one", english_alt: ["a"] },
+    { id: 15, french: "avoir", french_alt: [], english: "have", english_alt: [] },
+    { id: 16, french: "ce", french_alt: [], english: "this", english_alt: [] },
+    { id: 17, french: "à partir de", french_alt: [], english: "from", english_alt: [] },
+    { id: 18, french: "par", french_alt: [], english: "by", english_alt: [] },
+    { id: 19, french: "chaud", french_alt: [], english: "hot", english_alt: [] },
+    { id: 20, french: "mot", french_alt: [], english: "word", english_alt: [] },
+    { id: 21, french: "mais", french_alt: [], english: "but", english_alt: [] },
+    { id: 22, french: "que", french_alt: [], english: "what", english_alt: [] },
+    { id: 23, french: "certains", french_alt: [], english: "some", english_alt: [] },
+    { id: 24, french: "est", french_alt: [], english: "is", english_alt: [] },
+    { id: 25, french: "il", french_alt: [], english: "it", english_alt: [] },
+    { id: 26, french: "vous", french_alt: [], english: "you", english_alt: [] },
+    { id: 27, french: "ou", french_alt: [], english: "or", english_alt: [] },
+    { id: 28, french: "eu", french_alt: [], english: "had", english_alt: [] },
+    { id: 29, french: "la", french_alt: ["le"], english: "the", english_alt: [] },
+    { id: 30, french: "de", french_alt: [], english: "of", english_alt: [] },
+    { id: 31, french: "à", french_alt: [], english: "to", english_alt: [] },
+    { id: 32, french: "et", french_alt: [], english: "and", english_alt: [] },
+    { id: 33, french: "un", french_alt: [], english: "a", english_alt: [] },
+    { id: 34, french: "dans", french_alt: [], english: "in", english_alt: [] },
+    { id: 35, french: "nous", french_alt: [], english: "we", english_alt: ["us"] },
+    { id: 36, french: "boîte", french_alt: [], english: "can", english_alt: [] },
+    { id: 37, french: "dehors", french_alt: [], english: "out", english_alt: [] },
+    { id: 38, french: "autre", french_alt: [], english: "other", english_alt: [] },
+    { id: 39, french: "étaient", french_alt: [], english: "were", english_alt: [] },
+    { id: 40, french: "qui", french_alt: [], english: "which", english_alt: [] },
+    { id: 41, french: "faire", french_alt: [], english: "do", english_alt: [] },
+    { id: 42, french: "leur", french_alt: [], english: "their", english_alt: [] },
+    { id: 43, french: "temps", french_alt: [], english: "time", english_alt: [] },
+    { id: 44, french: "si", french_alt: [], english: "if", english_alt: [] },
+    { id: 45, french: "volonté", french_alt: [], english: "will", english_alt: [] },
+    { id: 46, french: "comment", french_alt: [], english: "how", english_alt: [] },
+    { id: 47, french: "dit", french_alt: [], english: "said", english_alt: [] },
+    { id: 48, french: "un", french_alt: [], english: "an", english_alt: [] },
+    { id: 49, french: "chaque", french_alt: [], english: "each", english_alt: [] },
+    { id: 50, french: "dire", french_alt: [], english: "tell", english_alt: [] },
+    { id: 51, french: "ne", french_alt: [], english: "does", english_alt: [] },
+    { id: 52, french: "ensemble", french_alt: [], english: "set", english_alt: [] },
+    { id: 53, french: "trois", french_alt: [], english: "three", english_alt: [] },
+    { id: 54, french: "vouloir", french_alt: [], english: "want", english_alt: [] },
+    { id: 55, french: "air", french_alt: [], english: "air", english_alt: [] },
+    { id: 56, french: "bien", french_alt: [], english: "well", english_alt: [] },
+    { id: 57, french: "aussi", french_alt: [], english: "also", english_alt: [] },
+    { id: 58, french: "jouer", french_alt: [], english: "play", english_alt: [] },
+    { id: 59, french: "petit", french_alt: ["petite"], english: "small", english_alt: [] },
+    { id: 60, french: "fin", french_alt: [], english: "end", english_alt: [] },
+    { id: 61, french: "mettre", french_alt: [], english: "put", english_alt: [] },
+    { id: 62, french: "maison", french_alt: [], english: "home", english_alt: ["house"] },
+    { id: 63, french: "lire", french_alt: [], english: "read", english_alt: [] },
+    { id: 64, french: "main", french_alt: [], english: "hand", english_alt: [] },
+    { id: 65, french: "port", french_alt: [], english: "port", english_alt: [] },
+    { id: 66, french: "grand", french_alt: [], english: "large", english_alt: [] },
+    { id: 67, french: "épeler", french_alt: [], english: "spell", english_alt: [] },
+    { id: 68, french: "ajouter", french_alt: [], english: "add", english_alt: [] },
+    { id: 69, french: "même", french_alt: [], english: "even", english_alt: [] },
+    { id: 70, french: "terre", french_alt: [], english: "land", english_alt: [] },
+    { id: 71, french: "ici", french_alt: [], english: "here", english_alt: [] },
+    { id: 72, french: "il faut", french_alt: [], english: "must", english_alt: [] },
+    { id: 73, french: "grand", french_alt: [], english: "big", english_alt: [] },
+    { id: 74, french: "haut", french_alt: [], english: "high", english_alt: [] },
+    { id: 75, french: "tel", french_alt: [], english: "such", english_alt: [] },
+    { id: 76, french: "suivre", french_alt: [], english: "follow", english_alt: [] },
+    { id: 77, french: "acte", french_alt: [], english: "act", english_alt: [] },
+    { id: 78, french: "pourquoi", french_alt: [], english: "why", english_alt: [] },
+    { id: 79, french: "interroger", french_alt: [], english: "ask", english_alt: [] },
+    { id: 80, french: "hommes", french_alt: [], english: "men", english_alt: [] },
+    { id: 81, french: "changement", french_alt: [], english: "change", english_alt: [] },
+    { id: 82, french: "est allé", french_alt: [], english: "went", english_alt: [] },
+    { id: 83, french: "lumière", french_alt: [], english: "light", english_alt: [] },
+    { id: 84, french: "genre", french_alt: [], english: "kind", english_alt: [] },
+    { id: 86, french: "besoin", french_alt: [], english: "need", english_alt: [] },
+    { id: 88, french: "image", french_alt: [], english: "picture", english_alt: [] },
+    { id: 89, french: "essayer", french_alt: [], english: "try", english_alt: [] },
+    { id: 91, french: "encore", french_alt: [], english: "again", english_alt: [] },
+    { id: 92, french: "animal", french_alt: [], english: "animal", english_alt: [] },
+    { id: 93, french: "point", french_alt: [], english: "point", english_alt: [] },
+    { id: 94, french: "mère", french_alt: [], english: "mother", english_alt: [] },
+    { id: 95, french: "monde", french_alt: [], english: "world", english_alt: [] },
+    { id: 96, french: "près de", french_alt: [], english: "near", english_alt: [] },
+    { id: 97, french: "construire", french_alt: [], english: "build", english_alt: [] },
+    { id: 98, french: "soi", french_alt: [], english: "self", english_alt: [] },
+    { id: 99, french: "terre", french_alt: [], english: "earth", english_alt: [] },
+    { id: 100, french: "père", french_alt: [], english: "father", english_alt: [] }
 	];
 
         const topFlag = document.getElementById('top-flag');
@@ -293,35 +370,104 @@
             return false;
         }
 
-        function checkAnswer() {
-            const answer = userInput.value.trim().toLowerCase();
-            const correct = targetWord.toLowerCase();
+// Helper function to calculate Levenshtein Distance for "close" answers
+function getLevenshteinDistance(a, b) {
+    const matrix = [];
+    for (let i = 0; i <= b.length; i++) matrix[i] = [i];
+    for (let j = 0; j <= a.length; j++) matrix[0][j] = j;
 
-            if (answer === correct) {
-                feedbackText.textContent = "Correct!";
-                feedbackText.className = "correct";
-                countRight++;
-                scoreRightEl.textContent = countRight;
-           } else if (isAnswerClose(answer, correct)) {
-                // Handle the new close state
-                feedbackText.textContent = `Close! The correct spelling is: ${targetWord}`;
-                feedbackText.className = "close";
-                countClose++;
-                scoreCloseEl.textContent = countClose;
+    for (let i = 1; i <= b.length; i++) {
+        for (let j = 1; j <= a.length; j++) {
+            if (b.charAt(i - 1) === a.charAt(j - 1)) {
+                matrix[i][j] = matrix[i - 1][j - 1];
             } else {
-                feedbackText.textContent = `Sorry: that's ${targetWord}`;
-                feedbackText.className = "incorrect";
-                countWrong++;
-                scoreWrongEl.textContent = countWrong;
-           }
-
-            instructionText.textContent = "Press Enter for the next word";
-            userInput.readOnly = true;
-            isWaitingForNext = true;
-            
-            // Clear accent shortcuts for the feedback phase
-            accentContainer.innerHTML = "";
+                matrix[i][j] = Math.min(
+                    matrix[i - 1][j - 1] + 1, // substitution
+                    matrix[i][j - 1] + 1,     // insertion
+                    matrix[i - 1][j] + 1      // deletion
+                );
+            }
         }
+    }
+    return matrix[b.length][a.length];
+}
+
+// Helper to determine if an answer is close enough (off by 1 for short words, 2 for longer)
+function isCloseMatch(input, target) {
+    const distance = getLevenshteinDistance(input, target);
+    if (target.length <= 4) return distance <= 1;
+    return distance <= 2;
+}
+
+function checkAnswer() {
+    const answer = userInput.value.trim().toLowerCase();
+    const isShowingFrench = (topFlag.src === FLAG_FR);
+    
+    // 1. Establish the primary correct answer
+    const primaryTarget = isShowingFrench ? currentWordPair.english.toLowerCase() : currentWordPair.french.toLowerCase();
+    
+    // 2. Safely grab the alternate array, converting all elements to lowercase for matching
+    let alternates = [];
+    if (isShowingFrench && Array.isArray(currentWordPair.english_alt)) {
+        alternates = currentWordPair.english_alt.map(word => word.toLowerCase());
+    } else if (!isShowingFrench && Array.isArray(currentWordPair.french_alt)) {
+        alternates = currentWordPair.french_alt.map(word => word.toLowerCase());
+    }
+
+    // --- EVALUATION LOGIC ---
+
+    // Check for Exact Match (Primary or any value inside the alternate array)
+    const hasExactAlternateMatch = alternates.includes(answer);
+
+    if (answer === primaryTarget || hasExactAlternateMatch) {
+        feedbackText.textContent = "Correct!";
+        feedbackText.className = "correct";
+        
+        // Update Right Score
+        countRight++;
+        scoreRightEl.textContent = countRight;
+    } 
+    // Check for Close Match on the Primary target
+    else if (isCloseMatch(answer, primaryTarget)) {
+        feedbackText.textContent = `Close! The exact answer is: ${primaryTarget}`;
+        feedbackText.className = "close"; // Updated class to match your CSS styling color
+        
+        // Update Close Score
+        countClose++;
+        scoreCloseEl.textContent = countClose;
+    } 
+    // Check for Close Match on any item inside the alternate array
+    else {
+        // Find if there is an alternate entry that is considered a "close match"
+        const closeAlternate = alternates.find(altWord => isCloseMatch(answer, altWord));
+        
+        if (closeAlternate) {
+            feedbackText.textContent = `Close! An acceptable answer is: ${closeAlternate}`;
+            feedbackText.className = "close"; // Updated class to match your CSS styling color
+            
+            // Update Close Score
+            countClose++;
+            scoreCloseEl.textContent = countClose;
+        } 
+        // Completely Incorrect
+        else {
+            if (alternates.length > 0) {
+                feedbackText.textContent = `Sorry: that's ${primaryTarget} (or ${alternates.join(', ')})`;
+            } else {
+                feedbackText.textContent = `Sorry: that's ${primaryTarget}`;
+            }
+            feedbackText.className = "incorrect";
+            
+            // Update Wrong Score
+            countWrong++;
+            scoreWrongEl.textContent = countWrong;
+        }
+    }
+
+    instructionText.textContent = "Press Enter for the next word";
+    userInput.readOnly = true;
+    isWaitingForNext = true;
+}
 
         document.querySelectorAll('.accent-btn').forEach(button => {
             button.addEventListener('click', () => {
