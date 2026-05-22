@@ -58,19 +58,17 @@ data for words that can also be right. I asked Gemini to score it
 like it works. There are a lot of possibilities.
 
 
+version 01.05	4 minutes dev	0 minutes code gen	4 minutes test		2 hours 12
+
+Put the entire 1000 words in there. Will edit and make changes are I try
+the app. Example: found this French word. Got rid of it:
+242, needs a context, don’t
+
+
 
 TODO: avoid repeated words, like what was done in Hangman
-TODO: it inconsistent in its use of conjugated verbs. Example: the English
-word was are. I type in etre. It was expecting sont. That is a correct 
-translation... but how would I know it was 3rd person plural? Maybe I have
-to add notes for conjugation. That is tricky: that conjutation needs to be
-shown in English, but not what needs to be typed in. Or... I should get rid
-of conjugation and only use unconjugated for verbs?
-TODO: another example. I was given French for "un". I entered "a". It expected
-"one". Maybe alternates need to be accepted?
 TODO: need the MIT License to be shown
 TODO: add an icon on the browser tab
-
-
+TODO: go through, making helpful edits to the 1000 French-English words
 
 
