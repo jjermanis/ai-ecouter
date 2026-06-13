@@ -212,14 +212,14 @@
     { id: 63, french: "lire", french_alt: [], english: "read", english_alt: [] },
     { id: 64, french: "main", french_alt: [], english: "hand", english_alt: [] },
     { id: 65, french: "port", french_alt: [], english: "port", english_alt: [] },
-    { id: 66, french: "grand", french_alt: [], english: "large", english_alt: [] },
+    { id: 66, french: "grand", french_alt: [], english: "large", english_alt: ["big","great"] },
     { id: 67, french: "épeler", french_alt: [], english: "spell", english_alt: [] },
     { id: 68, french: "ajouter", french_alt: [], english: "add", english_alt: [] },
     { id: 69, french: "même", french_alt: [], english: "even", english_alt: [] },
     { id: 70, french: "terre", french_alt: [], english: "land", english_alt: [] },
     { id: 71, french: "ici", french_alt: [], english: "here", english_alt: [] },
     { id: 72, french: "il faut", french_alt: [], english: "must", english_alt: [] },
-    { id: 73, french: "grand", french_alt: [], english: "big", english_alt: [] },
+    { id: 73, french: "grand", french_alt: [], english: "big", english_alt: ["great","grand"] },
     { id: 74, french: "haut", french_alt: [], english: "high", english_alt: [] },
     { id: 75, french: "tel", french_alt: [], english: "such", english_alt: [] },
     { id: 76, french: "suivre", french_alt: [], english: "follow", english_alt: [] },
@@ -275,7 +275,7 @@
     { id: 129, french: "juste", french_alt: [], english: "just", english_alt: [] },
     { id: 130, french: "forme", french_alt: [], english: "form", english_alt: [] },
     { id: 131, french: "phrase", french_alt: [], english: "sentence", english_alt: [] },
-    { id: 132, french: "grand", french_alt: [], english: "great", english_alt: [] },
+    { id: 132, french: "grand", french_alt: [], english: "great", english_alt: ["big","large"] },
     { id: 133, french: "penser", french_alt: [], english: "think", english_alt: [] },
     { id: 134, french: "dire", french_alt: [], english: "say", english_alt: [] },
     { id: 135, french: "aider", french_alt: [], english: "help", english_alt: [] },
@@ -387,7 +387,7 @@
     { id: 241, french: "courir", french_alt: [], english: "run", english_alt: [] },
     { id: 243, french: "tandis que", french_alt: [], english: "while", english_alt: [] },
     { id: 244, french: "presse", french_alt: [], english: "press", english_alt: [] },
-    { id: 245, french: "proche", french_alt: [], english: "close", english_alt: [] },
+    { id: 245, french: "proche", french_alt: [], english: "close", english_alt: ["near"] },
     { id: 246, french: "nuit", french_alt: [], english: "night", english_alt: [] },
     { id: 247, french: "réel", french_alt: [], english: "real", english_alt: [] },
     { id: 248, french: "vie", french_alt: [], english: "life", english_alt: [] },
@@ -677,7 +677,6 @@
     { id: 532, french: "fracture", french_alt: [], english: "divide", english_alt: [] },
     { id: 533, french: "syllabe", french_alt: [], english: "syllable", english_alt: [] },
     { id: 534, french: "feutre", french_alt: [], english: "felt", english_alt: [] },
-    { id: 535, french: "grand", french_alt: [], english: "grand", english_alt: [] },
     { id: 536, french: "balle", french_alt: [], english: "ball", english_alt: [] },
     { id: 537, french: "encore", french_alt: [], english: "yet", english_alt: [] },
     { id: 538, french: "vague", french_alt: [], english: "wave", english_alt: [] },
@@ -1164,6 +1163,7 @@
         let countRight = 0;
         let countClose = 0;
         let countWrong = 0;
+        let correctWordIds = [];
 
         function nextTurn() {
             // Reset state
@@ -1177,8 +1177,10 @@
             feedbackText.className = "";
             
             // Pick random word
-            currentWordPair = vocabulary[Math.floor(Math.random() * vocabulary.length)];
-            
+            do {
+                currentWordPair = vocabulary[Math.floor(Math.random() * vocabulary.length)];
+            } while (correctWordIds.includes(currentWordPair.id));   
+         
             // Randomize direction (Top is French or Top is English)
             const isFrenchOnTop = Math.random() < 0.5;
 
@@ -1324,6 +1326,11 @@ function checkAnswer() {
         // Update Right Score
         countRight++;
         scoreRightEl.textContent = countRight;
+
+        correctWordIds.push(currentWordPair.id);
+        if (correctWordIds.length >= 500) {
+            correctWordIds = [];
+        }
     } 
     // Check for Close Match on the Primary target
     else if (isCloseMatch(answer, primaryTarget)) {

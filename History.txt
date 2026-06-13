@@ -65,6 +65,13 @@ the app. Example: found this French word. Got rid of it:
 242, needs a context, don’t
 
 
+version 01.06 	6 minutes dev	0 minutes code gen	2 minutes test		2 hours 19
+
+To avoid getting back-to-back repeats, I have the game track which words
+have been played. It will keep track of 500 moves, then reset. The initial
+version from Gemini had a minor bug - I corrected it.
+
+
 
 TODO: avoid repeated words, like what was done in Hangman
 TODO: need the MIT License to be shown
