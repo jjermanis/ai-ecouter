@@ -72,10 +72,15 @@ have been played. It will keep track of 500 moves, then reset. The initial
 version from Gemini had a minor bug - I corrected it.
 
 
+version 01.07	25 minutes dev	1 minute code gen	2 minutes test		2 hours 47
 
-TODO: avoid repeated words, like what was done in Hangman
+I had been making some minor updates as I go: duplicate name, alternate
+definitions. To optimize, I asked Claude to suggest the issues it sees.
+It was great: I'd estimate it found 80 issues, and I accepted 75. 
+I think I'll make the move to release from here. Nice useful version 1.
+
+
+
 TODO: need the MIT License to be shown
 TODO: add an icon on the browser tab
-TODO: go through, making helpful edits to the 1000 French-English words
-
 
