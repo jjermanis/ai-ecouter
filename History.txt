@@ -80,7 +80,10 @@ It was great: I'd estimate it found 80 issues, and I accepted 75.
 I think I'll make the move to release from here. Nice useful version 1.
 
 
+version 01.08	8 minutes dev	0 minutes code gen	1 minute test	s	2 hours 56
 
-TODO: need the MIT License to be shown
-TODO: add an icon on the browser tab
+Standard wrap up here. Added the browser tab icon (the French e with aigu).
+Add the MIT License to the lower-right corner.
+
+
 
